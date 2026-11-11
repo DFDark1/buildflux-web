@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { Check, Mail } from "lucide-react";
 import { fadeUp, stagger } from "./motion";
 
-const EMAIL = "prism.edits@gmail.com";
+const EMAIL = "BuildFluxWebs@gmail.com";
 const GITHUB = "https://github.com/buildflux";
 
 const field =
