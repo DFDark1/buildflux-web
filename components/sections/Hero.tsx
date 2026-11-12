@@ -71,7 +71,7 @@ export default function Hero() {
               href="#work"
               className={`inline-flex items-center rounded-xl border border-white/10 bg-black/40 px-6 py-3.5 font-medium backdrop-blur-xl transition-colors hover:border-[#0EA5E9]/50 hover:bg-white/5 ${focusRing}`}
             >
-              View Recent Work
+              Timeline Overview
             </a>
           </motion.div>
         </div>
