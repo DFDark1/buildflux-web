@@ -6,7 +6,7 @@ import { Check, Mail } from "lucide-react";
 import { fadeUp, stagger } from "./motion";
 
 const EMAIL = "BuildFluxWebs@gmail.com";
-const GITHUB = "https://github.com/buildflux";
+const GITHUB = "https://github.com/DFDark1";
 
 const field =
   "w-full rounded-xl border border-white/10 bg-black/40 px-4 py-3 text-sm text-zinc-100 outline-none transition-colors placeholder:text-zinc-500 focus:border-[#0EA5E9]/60 focus:ring-2 focus:ring-[#0EA5E9]/30 [color-scheme:dark]";
