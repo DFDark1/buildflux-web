@@ -14,7 +14,7 @@ const rows = [
   {
     topic: "Speed",
     old: "Months of back and forth before anything goes live.",
-    next: "Clear milestones and working previews. Launch in weeks.",
+    next: "Clear milestones and working previews. Launch in days.",
   },
   {
     topic: "Performance",
