@@ -5,7 +5,7 @@ import { ease } from "./motion";
 
 const links = [
   { label: "Why BuildFlux", href: "#why" },
-  { label: "Work", href: "#work" },
+  { label: "Timeline", href: "#work" },
   { label: "Process", href: "#process" },
 ];
 
