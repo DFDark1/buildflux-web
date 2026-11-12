@@ -4,7 +4,9 @@ import { useRef } from "react";
 import { motion, useScroll, useSpring } from "framer-motion";
 import { Clock } from "lucide-react";
 
-const steps = [
+type Step = { title: string; body: string; chip: string };
+
+const steps: Step[] = [
   {
     title: "Send a quick async brief",
     body: "Fill in a short form or send a voice note. No calendar invites, no two-hour kickoff meeting.",
@@ -21,6 +23,8 @@ const steps = [
     chip: "Live and measurable",
   },
 ];
+
+const ease: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 export default function Process() {
   const ref = useRef<HTMLOListElement>(null);
@@ -50,7 +54,7 @@ export default function Process() {
             initial={{ opacity: 0, y: 16 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.55, ease }}
             className="relative pl-16"
           >
             <span className="font-code absolute left-0 top-0 flex h-10 w-10 items-center justify-center rounded-full border border-[#0EA5E9]/50 bg-zinc-950 text-sm text-[#bae6fd] shadow-[0_0_20px_-4px_#0EA5E9]">
@@ -60,7 +64,7 @@ export default function Process() {
               <h3 className="text-xl font-semibold">{s.title}</h3>
               <p className="mt-2 text-zinc-400">{s.body}</p>
               <p className="mt-4 inline-flex items-center gap-1.5 rounded-md bg-white/5 px-2.5 py-1 text-sm text-zinc-300">
-                <Clock className="h-3.5 w-3.5 text-[#38bdf8]" />
+                <Clock className="h-3.5 w-3.5 text-[#38bdf8]" aria-hidden />
                 {s.chip}
               </p>
             </div>
