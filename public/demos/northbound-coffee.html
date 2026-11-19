@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Northbound Coffee Roasters | Small-batch coffee in Portland, OR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,700&family=Instrument+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#140f0c;
+  --cream:#f5ecdf;
+  --paper:#fbf6ee;
+  --ember:#ff6a2b;
+  --head:'Fraunces',Georgia,serif;
+  --body:'Instrument Sans',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:var(--body);font-size:1.08rem;line-height:1.6;color:var(--ink);background:var(--paper)}
+h1,h2,h3{font-family:var(--head);line-height:1.04;letter-spacing:-.015em}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ember);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 1.5rem}
+.btn{display:inline-block;font:700 1rem var(--body);text-decoration:none;border:0;cursor:pointer;padding:.9rem 1.6rem;border-radius:.8rem;background:var(--ember);color:var(--ink);transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px -8px rgba(255,106,43,.7)}
+.btn:disabled{opacity:.55;cursor:not-allowed;transform:none;box-shadow:none}
+.btn.ghost{background:transparent;color:inherit;box-shadow:inset 0 0 0 2px currentColor}
+section{padding:6rem 0}
+h2{font-size:clamp(2rem,4.6vw,3.3rem);margin-bottom:1rem}
+.lead{max-width:36rem;font-size:1.18rem}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .8s,transform .8s cubic-bezier(.2,.8,.2,1)}
+.rv.in{opacity:1;transform:none}
+
+/* NAV */
+nav{position:absolute;inset:0 0 auto 0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 1.5rem;color:var(--fg,var(--ink))}
+.logo{font-family:var(--head);font-weight:700;font-size:1.3rem;text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.logo svg{width:22px;height:22px}
+nav ul{display:flex;gap:1.8rem;list-style:none}
+nav ul a{text-decoration:none;font-weight:500;opacity:.85}
+nav ul a:hover{opacity:1;text-decoration:underline;text-underline-offset:6px;text-decoration-thickness:2px}
+@media(max-width:760px){nav ul{display:none}}
+
+/* HERO: the roast slider recolors the page */
+.hero{--bg:#e2b57c;--fg:#140f0c;--bean:#a8693a;background:var(--bg);color:var(--fg);transition:background-color .2s linear,color .2s linear;padding:7rem 0 5rem;position:relative;overflow:hidden}
+.hgrid{display:grid;grid-template-columns:1.05fr .95fr;gap:3rem;align-items:center}
+.hero h1{font-size:clamp(2.7rem,6.6vw,5.6rem);margin-bottom:1.3rem}
+.hero h1 span{display:block;opacity:0;filter:blur(14px);transform:translateY(14px);animation:focus 1s cubic-bezier(.2,.8,.2,1) forwards}
+.hero h1 span:first-child{font-weight:700}
+.hero h1 span:last-child{font-weight:300;animation-delay:.25s}
+@keyframes focus{to{opacity:1;filter:none;transform:none}}
+.sub{max-width:30rem;font-size:1.2rem;margin-bottom:2rem;opacity:0;animation:fade .9s .6s forwards}
+.cta{display:flex;gap:.9rem;flex-wrap:wrap;opacity:0;animation:fade .9s .8s forwards}
+@keyframes fade{to{opacity:1}}
+.stage{display:grid;gap:1.2rem;justify-items:center}
+#bean{width:min(280px,60%);height:auto;overflow:visible;filter:drop-shadow(0 24px 24px rgba(0,0,0,.28));animation:bob 6s ease-in-out infinite}
+@keyframes bob{50%{translate:0 -8px}}
+#beanG{transform-origin:150px 180px;transition:transform .5s cubic-bezier(.3,1.4,.5,1)}
+.card{width:100%;max-width:440px;padding:1.3rem 1.4rem;border-radius:1.2rem;background:color-mix(in srgb,var(--fg) 9%,transparent);box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--fg) 25%,transparent)}
+.card label{display:flex;justify-content:space-between;align-items:baseline;font-weight:700;margin-bottom:.8rem}
+.card output{font-family:var(--head);font-size:1.25rem}
+input[type=range]{-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:99px;background:linear-gradient(90deg,#f3d6a4,#be8654,#4e2e1e,#1a100b);outline-offset:6px;cursor:pointer}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:30px;height:30px;border-radius:50%;background:var(--ember);border:4px solid var(--cream);box-shadow:0 2px 8px rgba(0,0,0,.4)}
+input[type=range]::-moz-range-thumb{width:22px;height:22px;border-radius:50%;background:var(--ember);border:4px solid var(--cream)}
+.scale{display:flex;justify-content:space-between;font-size:.85rem;margin-top:.5rem;opacity:.75}
+.notes{list-style:none;display:flex;gap:.5rem;flex-wrap:wrap;margin:1rem 0}
+.notes li{padding:.25rem .8rem;border-radius:99px;font-size:.92rem;box-shadow:inset 0 0 0 1.5px currentColor;animation:pop .4s backwards}
+@keyframes pop{from{opacity:0;transform:scale(.8)}}
+.m{display:grid;grid-template-columns:6.5rem 1fr;gap:.8rem;align-items:center;font-size:.9rem;margin-top:.45rem}
+.m i{display:block;height:8px;border-radius:9px;background:color-mix(in srgb,currentColor 18%,transparent);overflow:hidden}
+.m b{display:block;height:100%;background:currentColor;border-radius:9px;transition:width .4s cubic-bezier(.3,1,.4,1)}
+@media(max-width:860px){.hgrid{grid-template-columns:1fr}}
+
+/* COFFEES */
+.chips{display:flex;gap:.5rem;flex-wrap:wrap;margin:1.8rem 0 2rem}
+.chip{font:700 .95rem var(--body);padding:.5rem 1.1rem;border-radius:99px;border:2px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer;transition:background .2s,color .2s}
+.chip:hover{background:rgba(20,15,12,.08)}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--cream)}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:1.4rem}
+.cof{background:#fff;border-radius:1.2rem;padding:1.3rem;display:flex;flex-direction:column;box-shadow:0 0 0 1px rgba(20,15,12,.08);animation:pop .45s backwards;transition:box-shadow .25s,transform .25s}
+.cof[hidden]{display:none}
+.cof:hover{transform:translateY(-4px);box-shadow:0 0 0 1px rgba(20,15,12,.08),0 18px 30px -16px rgba(20,15,12,.35)}
+.cof svg{width:96px;height:auto;margin:0 auto .6rem;display:block;transition:transform .4s cubic-bezier(.3,1.6,.5,1)}
+.cof:hover svg{transform:rotate(-5deg) scale(1.06)}
+.cof h3{font-size:1.35rem}
+.cof .meta{font-size:.9rem;opacity:.7;margin:.15rem 0 .6rem}
+.cof p{flex:1;margin-bottom:1rem}
+.row{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.row b{font:700 1.4rem var(--head)}
+.add{font:700 .95rem var(--body);padding:.55rem 1.1rem;border-radius:.7rem;border:2px solid var(--ink);background:transparent;cursor:pointer;transition:background .2s,color .2s}
+.add:hover{background:var(--ink);color:var(--cream)}
+
+/* BREW TIMER */
+.brew{background:var(--ink);color:var(--cream)}
+.bgrid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.cups{display:flex;gap:.5rem;align-items:center;margin:1.4rem 0;flex-wrap:wrap}
+.cups button{font:700 .95rem var(--body);padding:.45rem 1rem;border-radius:99px;border:2px solid rgba(245,236,223,.35);background:transparent;color:var(--cream);cursor:pointer}
+.cups button[aria-pressed="true"]{background:var(--ember);border-color:var(--ember);color:var(--ink)}
+.dose{opacity:.8;margin-bottom:1.4rem}
+.steps{list-style:none;display:grid;gap:.6rem}
+.steps li{display:grid;grid-template-columns:3.6rem 1fr;gap:.8rem;padding:.7rem 1rem;border-radius:.8rem;opacity:.5;transition:opacity .3s,background .3s}
+.steps li.now{opacity:1;background:rgba(255,106,43,.16);box-shadow:inset 3px 0 0 var(--ember)}
+.steps li.past{opacity:.35}
+.steps time{font-variant-numeric:tabular-nums;opacity:.8}
+.steps b{display:block}
+.dial{position:relative;width:min(340px,80%);margin:0 auto;aspect-ratio:1}
+.dial svg{width:100%;height:100%;transform:rotate(-90deg)}
+.dial circle{fill:none;stroke-width:10}
+.dial .trk{stroke:rgba(245,236,223,.14)}
+.dial .prg{stroke:var(--ember);stroke-linecap:round;stroke-dasharray:565.5;stroke-dashoffset:565.5}
+.dial .mid{position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:.2rem}
+.dial .t{font:700 3.6rem var(--head);font-variant-numeric:tabular-nums;line-height:1}
+.dial .now{font-size:1.05rem;max-width:11rem;opacity:.9}
+.drop{position:absolute;left:50%;top:14%;width:10px;height:14px;margin-left:-5px;background:var(--ember);border-radius:50% 50% 50% 50%/60% 60% 40% 40%;opacity:0}
+.running .drop{animation:drip 1.2s ease-in infinite}
+@keyframes drip{0%{opacity:0;transform:translateY(0)}20%{opacity:1}100%{opacity:0;transform:translateY(46px)}}
+.ctl{display:flex;gap:.7rem;justify-content:center;margin-top:1.4rem}
+@media(max-width:860px){.bgrid{grid-template-columns:1fr;gap:2.5rem}}
+
+/* SUBSCRIBE */
+.sub-sec{background:var(--ember)}
+.sgrid{display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start}
+.boxl{list-style:none;margin:1.4rem 0;display:grid;gap:.5rem}
+.boxl li{display:flex;justify-content:space-between;align-items:center;gap:1rem;background:rgba(251,246,238,.55);padding:.7rem 1rem;border-radius:.8rem}
+.qty{display:flex;align-items:center;gap:.4rem}
+.qty button{width:30px;height:30px;border-radius:50%;border:2px solid var(--ink);background:transparent;font:700 1rem var(--body);cursor:pointer;line-height:1}
+.qty button:hover{background:var(--ink);color:var(--cream)}
+.empty{padding:1rem;border-radius:.8rem;background:rgba(251,246,238,.55)}
+.tot{display:grid;gap:.25rem;font-size:1rem}
+.tot div{display:flex;justify-content:space-between}
+.tot .g{font:700 1.5rem var(--head);padding-top:.4rem;border-top:2px solid var(--ink);margin-top:.3rem}
+form{background:var(--paper);padding:1.6rem;border-radius:1.2rem;display:grid;gap:1rem}
+label.f{display:grid;gap:.3rem;font-weight:700;font-size:.95rem}
+input[type=text],input[type=email],select{font:inherit;padding:.75rem 1rem;border-radius:.7rem;border:2px solid rgba(20,15,12,.2);background:#fff;color:var(--ink)}
+input:focus,select:focus{outline:none;border-color:var(--ember);box-shadow:0 0 0 4px rgba(255,106,43,.25)}
+#boxMsg{min-height:1.4rem;font-size:.95rem;font-weight:700}
+.thanks{display:none;background:var(--paper);padding:2.4rem 1.6rem;border-radius:1.2rem;text-align:center}
+.thanks.show{display:block;animation:pop .6s}
+.thanks svg{width:120px;margin:0 auto 1rem;display:block;overflow:visible}
+.steam{fill:none;stroke:var(--ember);stroke-width:5;stroke-linecap:round;stroke-dasharray:60;stroke-dashoffset:60;animation:rise 2.4s ease-in-out infinite}
+.steam:nth-of-type(2){animation-delay:.5s}.steam:nth-of-type(3){animation-delay:1s}
+@keyframes rise{50%{stroke-dashoffset:0}100%{stroke-dashoffset:-60}}
+@media(max-width:860px){.sgrid{grid-template-columns:1fr}}
+
+/* sticky box bar */
+.bar{position:fixed;left:50%;bottom:1rem;z-index:30;transform:translate(-50%,160%);display:flex;gap:1.2rem;align-items:center;background:var(--ink);color:var(--cream);padding:.8rem 1.3rem;border-radius:99px;text-decoration:none;box-shadow:0 14px 32px -10px rgba(0,0,0,.55);transition:transform .45s cubic-bezier(.3,1.3,.5,1);white-space:nowrap}
+.bar.show{transform:translate(-50%,0)}
+.bar b{color:var(--ember)}
+
+footer{background:var(--ink);color:var(--cream);padding:3rem 0;font-size:.98rem}
+footer .wrap{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+footer h3{font-size:1.2rem;color:var(--ember);margin-bottom:.4rem}
+
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .hero h1 span,.sub,.cta,.rv{opacity:1;filter:none;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+<nav>
+  <a class="logo" href="#top"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 1l2.6 8.4L23 12l-8.4 2.6L12 23l-2.6-8.4L1 12l8.4-2.6Z" fill="currentColor"/></svg>Northbound</a>
+  <ul>
+    <li><a href="#top">Roast</a></li>
+    <li><a href="#coffees">Coffees</a></li>
+    <li><a href="#brew">Brew guide</a></li>
+    <li><a href="#box">Subscribe</a></li>
+  </ul>
+</nav>
+  <div class="wrap hgrid">
+    <div>
+      <h1 aria-label="Roasted Monday. At your door Thursday."><span>Roasted Monday.</span><span>At your door Thursday.</span></h1>
+      <p class="sub">Small-batch coffee from Portland, Oregon. Slide the roast to see what changes in the cup, then build a box that ships fresh on your schedule.</p>
+      <div class="cta">
+        <a class="btn" href="#coffees">Shop coffees</a>
+        <button class="btn ghost" id="match" type="button">Match my roast</button>
+      </div>
+    </div>
+    <div class="stage">
+      <svg id="bean" viewBox="0 0 300 360" aria-hidden="true">
+        <g id="beanG">
+          <path d="M150 20C230 30 270 120 262 210 254 300 200 345 140 340 70 335 30 260 38 170 46 80 80 12 150 20Z" fill="var(--bean)" stroke="rgba(255,255,255,.22)" stroke-width="3"/>
+          <path d="M96 70C70 110 64 170 76 220" stroke="rgba(255,255,255,.28)" stroke-width="10" fill="none" stroke-linecap="round"/>
+          <path d="M150 28C120 100 180 160 140 230S160 320 142 336" stroke="rgba(0,0,0,.5)" stroke-width="10" fill="none" stroke-linecap="round"/>
+        </g>
+      </svg>
+      <div class="card">
+        <label for="roast">Roast level <output id="rname" for="roast">Medium-light</output></label>
+        <input type="range" id="roast" min="0" max="100" value="38">
+        <div class="scale" aria-hidden="true"><span>Light</span><span>Medium</span><span>Dark</span></div>
+        <ul class="notes" id="notes" aria-label="Tasting notes"></ul>
+        <div class="m"><span>Brightness</span><i><b id="m1"></b></i></div>
+        <div class="m"><span>Body</span><i><b id="m2"></b></i></div>
+        <div class="m"><span>Bitterness</span><i><b id="m3"></b></i></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<section id="coffees">
+  <div class="wrap">
+    <h2 class="rv">This week’s coffees</h2>
+    <p class="lead rv">Every bag is roasted to order on Monday and ships the same week. Prices are per 12 oz bag.</p>
+    <div class="chips" role="group" aria-label="Filter by roast">
+      <button class="chip" data-f="all" aria-pressed="true">All</button>
+      <button class="chip" data-f="Light" aria-pressed="false">Light</button>
+      <button class="chip" data-f="Medium" aria-pressed="false">Medium</button>
+      <button class="chip" data-f="Dark" aria-pressed="false">Dark</button>
+    </div>
+    <div class="cgrid" id="cgrid"></div>
+  </div>
+</section>
+
+<section class="brew" id="brew">
+  <div class="wrap bgrid">
+    <div class="rv">
+      <h2>Pour-over in three minutes</h2>
+      <p class="lead">Press start and follow along. The steps and weights scale with how many cups you’re making.</p>
+      <div class="cups" role="group" aria-label="Number of cups">
+        <span>Cups:</span>
+        <button data-c="1" aria-pressed="true">1</button><button data-c="2" aria-pressed="false">2</button><button data-c="3" aria-pressed="false">3</button>
+      </div>
+      <p class="dose" id="dose"></p>
+      <ol class="steps" id="steps"></ol>
+    </div>
+    <div class="rv" id="dialWrap">
+      <div class="dial">
+        <svg viewBox="0 0 200 200" aria-hidden="true"><circle class="trk" cx="100" cy="100" r="90"/><circle class="prg" id="prg" cx="100" cy="100" r="90"/></svg>
+        <span class="drop" aria-hidden="true"></span>
+        <div class="mid"><div class="t" id="time">0:00</div><div class="now" id="nowTxt" aria-live="polite">Ready when you are</div></div>
+      </div>
+      <div class="ctl">
+        <button class="btn" id="go" type="button">Start</button>
+        <button class="btn ghost" id="rst" type="button">Reset</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sub-sec" id="box">
+  <div class="wrap sgrid">
+    <div class="rv">
+      <h2>Build your box</h2>
+      <p class="lead">Add bags above, then pick how often they arrive. Subscribers get 10% off and free shipping. Skip or cancel any time.</p>
+      <ul class="boxl" id="boxl"></ul>
+      <div class="tot" id="tot"></div>
+    </div>
+    <div class="rv">
+      <form id="form" novalidate>
+        <label class="f">Name<input type="text" name="name" required autocomplete="name"></label>
+        <label class="f">Email<input type="email" name="email" required autocomplete="email"></label>
+        <label class="f">How often?
+          <select name="freq"><option>Every week</option><option selected>Every 2 weeks</option><option>Every 4 weeks</option></select>
+        </label>
+        <label class="f">Grind
+          <select name="grind"><option>Whole bean</option><option>Espresso</option><option>Pour-over</option><option>French press</option></select>
+        </label>
+        <p id="boxMsg" role="alert"></p>
+        <button class="btn" type="submit">Start my subscription</button>
+      </form>
+      <div class="thanks" id="thanks" role="status">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <path class="steam" d="M42 38c-8-8 8-14 0-24"/><path class="steam" d="M60 38c-8-8 8-14 0-24"/><path class="steam" d="M78 38c-8-8 8-14 0-24"/>
+          <path d="M24 50h72v26a26 26 0 0 1-26 26H50a26 26 0 0 1-26-26Z" fill="#140f0c"/><path d="M96 56h6a10 10 0 0 1 0 20h-6" fill="none" stroke="#140f0c" stroke-width="7"/>
+        </svg>
+        <h3 id="tH" style="font-size:2rem"></h3>
+        <p id="tP" style="margin-top:.5rem"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<a class="bar" id="bar" href="#box"><span id="barTxt"></span><b>Review box →</b></a>
+
+<footer>
+  <div class="wrap">
+    <div><h3>Northbound Coffee Roasters</h3><p>2210 SE Division Street<br>Portland, OR 97202</p></div>
+    <div><h3>Roastery hours</h3><p>Tue to Sat, 8 AM to 4 PM<br>(503) 555-0136<br>hello@northbound.example</p></div>
+    <div><p style="opacity:.6;max-width:16rem">© 2026 Northbound Coffee Roasters. Sample website for demonstration only.</p></div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const calm=matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const $=id=>document.getElementById(id);
+
+  /* ===== Roast slider recolors the hero ===== */
+  const bgStops=[[243,214,166],[190,134,84],[78,46,30],[24,15,11]];
+  const beanStops=[[201,142,70],[133,76,38],[104,62,38],[66,40,26]];
+  const mix=(s,r)=>{const p=r/100*3,i=Math.min(2,Math.floor(p)),f=p-i;return s[i].map((v,k)=>Math.round(v+(s[i+1][k]-v)*f))};
+  const lum=c=>{const l=c.map(v=>{v/=255;return v<=.03928?v/12.92:Math.pow((v+.055)/1.055,2.4)});return .2126*l[0]+.7152*l[1]+.0722*l[2]};
+  const buckets=[
+    {max:25,name:'Light roast',key:'Light',notes:['Jasmine','Stone fruit','Citrus']},
+    {max:50,name:'Medium-light',key:'Light',notes:['Honey','Red apple','Caramel']},
+    {max:75,name:'Medium-dark',key:'Medium',notes:['Cocoa','Toasted almond','Brown sugar']},
+    {max:101,name:'Dark roast',key:'Dark',notes:['Dark chocolate','Molasses','Smoke']}
+  ];
+  const hero=document.querySelector('.hero'),slider=$('roast');
+  let lastB=null;
+  function update(){
+    const r=+slider.value,bg=mix(bgStops,r),bean=mix(beanStops,r);
+    hero.style.setProperty('--bg','rgb('+bg+')');
+    hero.style.setProperty('--fg',lum(bg)>.175?'#140f0c':'#f5ecdf');
+    hero.style.setProperty('--bean','rgb('+bean+')');
+    $('beanG').style.transform='rotate('+(-28+r*.5)+'deg)';
+    $('m1').style.width=(92-r*.78)+'%';$('m2').style.width=(28+r*.6)+'%';$('m3').style.width=(8+r*.82)+'%';
+    const b=buckets.find(x=>r<x.max);
+    if(b!==lastB){
+      lastB=b;$('rname').textContent=b.name;
+      $('notes').innerHTML=b.notes.map((n,i)=>'<li style="animation-delay:'+(calm?0:i*70)+'ms">'+n+'</li>').join('');
+    }
+  }
+  slider.addEventListener('input',update);update();
+
+  /* ===== Coffees ===== */
+  const coffees=[
+    {id:'guji',n:'Ethiopia Guji',o:'Natural process, Oromia',r:14,roast:'Light',notes:'Jasmine, peach and bergamot. Floral and juicy.',p:19},
+    {id:'nyeri',n:'Kenya Nyeri',o:'Washed, Nyeri County',r:22,roast:'Light',notes:'Blackcurrant, grapefruit and brown sugar.',p:20},
+    {id:'huila',n:'Colombia Huila',o:'Washed, Huila',r:45,roast:'Medium',notes:'Red apple, caramel and almond. Easy all day.',p:17},
+    {id:'antigua',n:'Guatemala Antigua',o:'Washed, Antigua',r:56,roast:'Medium',notes:'Cocoa, orange peel and toffee.',p:17},
+    {id:'cerrado',n:'Brazil Cerrado',o:'Natural, Minas Gerais',r:78,roast:'Dark',notes:'Dark chocolate, hazelnut and molasses.',p:16},
+    {id:'sumatra',n:'Sumatra Mandheling',o:'Wet-hulled, Aceh',r:92,roast:'Dark',notes:'Cedar, dark cocoa and a little smoke.',p:16}
+  ];
+  const money=n=>'$'+(Math.round(n*100)/100).toFixed(2).replace(/\.00$/,'');
+  const bag=r=>'<svg viewBox="0 0 140 170" aria-hidden="true"><path d="M30 20h80l8 22v108a8 8 0 0 1-8 8H30a8 8 0 0 1-8-8V42Z" fill="rgb('+mix(beanStops,r)+')"/><path d="M30 20h80l8 22H22Z" fill="rgba(0,0,0,.25)"/><rect x="38" y="68" width="64" height="62" rx="4" fill="#f5ecdf"/><path d="M48 84h44M48 96h30M48 108h38" stroke="#140f0c" stroke-width="4" stroke-linecap="round" opacity=".7"/><circle cx="70" cy="50" r="5" fill="#ff6a2b"/></svg>';
+  const grid=$('cgrid');
+  grid.innerHTML=coffees.map((c,i)=>'<article class="cof" data-roast="'+c.roast+'" style="animation-delay:'+(i*60)+'ms">'+bag(c.r)+'<h3>'+c.n+'</h3><div class="meta">'+c.o+' · '+c.roast+' roast</div><p>'+c.notes+'</p><div class="row"><b>'+money(c.p)+'</b><button class="add" data-id="'+c.id+'" aria-label="Add '+c.n+' to box">Add to box</button></div></article>').join('');
+
+  const chips=[].slice.call(document.querySelectorAll('.chip'));
+  function filter(f){
+    chips.forEach(x=>x.setAttribute('aria-pressed',x.dataset.f===f));
+    grid.querySelectorAll('.cof').forEach(el=>{el.hidden=!(f==='all'||el.dataset.roast===f)});
+  }
+  chips.forEach(c=>c.addEventListener('click',()=>filter(c.dataset.f)));
+  $('match').addEventListener('click',()=>{filter(lastB.key);$('coffees').scrollIntoView({behavior:calm?'auto':'smooth'})});
+
+  /* ===== Box ===== */
+  const box={};
+  const bar=$('bar');
+  function render(){
+    const ids=Object.keys(box).filter(k=>box[k]>0);
+    let n=0,sub=0;
+    ids.forEach(id=>{const c=coffees.find(x=>x.id===id);n+=box[id];sub+=box[id]*c.p});
+    bar.classList.toggle('show',n>0);
+    $('barTxt').textContent=n+(n===1?' bag':' bags')+' · '+money(sub*.9);
+    $('boxl').innerHTML=ids.length?ids.map(id=>{const c=coffees.find(x=>x.id===id);return '<li><span>'+c.n+'</span><span class="qty"><button data-m="'+id+'" aria-label="Remove one '+c.n+'">−</button><b aria-live="polite">'+box[id]+'</b><button data-p="'+id+'" aria-label="Add one '+c.n+'">+</button></span></li>'}).join(''):'<li class="empty" style="display:block">Your box is empty. Add a coffee from the list above.</li>';
+    $('tot').innerHTML=ids.length?'<div><span>Subtotal</span><span>'+money(sub)+'</span></div><div><span>Subscriber discount (10%)</span><span>−'+money(sub*.1)+'</span></div><div><span>Shipping</span><span>Free</span></div><div class="g"><span>Per delivery</span><span>'+money(sub*.9)+'</span></div>':'';
+  }
+  grid.addEventListener('click',e=>{const b=e.target.closest('.add');if(!b)return;box[b.dataset.id]=(box[b.dataset.id]||0)+1;render();b.textContent='Added ✓';setTimeout(()=>b.textContent='Add to box',1100)});
+  $('boxl').addEventListener('click',e=>{const m=e.target.closest('[data-m]'),p=e.target.closest('[data-p]');if(m)box[m.dataset.m]--;if(p)box[p.dataset.p]++;render()});
+  render();
+
+  $('form').addEventListener('submit',e=>{
+    e.preventDefault();
+    const f=e.target,v=new FormData(f),ids=Object.keys(box).filter(k=>box[k]>0);
+    if(!ids.length){$('boxMsg').textContent='Add at least one bag to your box first.';return}
+    if(!f.checkValidity()){$('boxMsg').textContent='Please fill in your name and a valid email.';f.reportValidity();return}
+    const d=new Date();d.setDate(d.getDate()+((8-d.getDay())%7||7));
+    const th=new Date(d);th.setDate(th.getDate()+3);
+    const fmt=x=>x.toLocaleDateString([],{weekday:'long',month:'long',day:'numeric'});
+    $('tH').textContent='Welcome aboard, '+String(v.get('name')).split(' ')[0];
+    $('tP').textContent='Your first box is roasted '+fmt(d)+' and arrives about '+fmt(th)+', then '+String(v.get('freq')).toLowerCase()+'. A receipt is on its way to '+v.get('email')+'.';
+    f.style.display='none';$('thanks').classList.add('show');bar.classList.remove('show');
+  });
+
+  /* ===== Pour-over timer ===== */
+  const TOTAL=180,C=565.5;
+  let cups=1,el=0,run=false,last=0;
+  const plan=()=>{const W=250*cups,d=15*cups;return [
+    {s:0,e:45,n:'Bloom',t:'Pour '+2*d+' g and wet every grind'},
+    {s:45,e:75,n:'First pour',t:'Pour slowly to '+Math.round(W*.6)+' g'},
+    {s:75,e:120,n:'Second pour',t:'Pour to '+W+' g'},
+    {s:120,e:180,n:'Drawdown',t:'Let it drip through'}]};
+  const mmss=s=>Math.floor(s/60)+':'+String(Math.floor(s%60)).padStart(2,'0');
+  function drawSteps(){
+    $('dose').textContent=15*cups+' g coffee, medium-fine grind · '+250*cups+' g water at 96°C';
+    $('steps').innerHTML=plan().map(s=>'<li><time>'+mmss(s.s)+'</time><span><b>'+s.n+'</b>'+s.t+'</span></li>').join('');
+  }
+  let lastStep=-1;
+  function drawTimer(){
+    $('prg').style.strokeDashoffset=C*(1-el/TOTAL);
+    $('time').textContent=mmss(el);
+    const p=plan(),i=el>=TOTAL?4:p.findIndex(s=>el>=s.s&&el<s.e);
+    [].forEach.call($('steps').children,(li,k)=>{li.classList.toggle('now',k===i);li.classList.toggle('past',k<i)});
+    if(i!==lastStep){lastStep=i;$('nowTxt').textContent=el===0?'Ready when you are':i===4?'Done. Enjoy your cup.':p[i].t}
+  }
+  function tick(t){
+    if(!run)return;
+    el=Math.min(TOTAL,el+(t-last)/1000);last=t;
+    if(el>=TOTAL){run=false;$('dialWrap').classList.remove('running');$('go').textContent='Brew again'}
+    drawTimer();if(run)requestAnimationFrame(tick);
+  }
+  $('go').addEventListener('click',()=>{
+    if(el>=TOTAL){el=0;lastStep=-1}
+    run=!run;$('go').textContent=run?'Pause':'Resume';
+    $('dialWrap').classList.toggle('running',run);
+    if(run){last=performance.now();requestAnimationFrame(tick)}
+  });
+  $('rst').addEventListener('click',()=>{run=false;el=0;lastStep=-1;$('go').textContent='Start';$('dialWrap').classList.remove('running');drawTimer()});
+  document.querySelectorAll('.cups button').forEach(b=>b.addEventListener('click',()=>{
+    cups=+b.dataset.c;document.querySelectorAll('.cups button').forEach(x=>x.setAttribute('aria-pressed',x===b));
+    lastStep=-1;drawSteps();drawTimer();
+  }));
+  drawSteps();drawTimer();
+
+  /* ===== Scroll reveal ===== */
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}}),{threshold:.15});
+  document.querySelectorAll('.rv').forEach(x=>io.observe(x));
+})();
+</script>
+</body>
+</html>
