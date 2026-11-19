@@ -2,6 +2,7 @@ import MotionProvider from "@/components/providers/MotionProvider";
 import Navbar from "@/components/sections/Navbar";
 import Hero from "@/components/sections/Hero";
 import WhyUs from "@/components/sections/Whyus";
+import Demos from "@/components/sections/Demos";
 import Work from "@/components/sections/Work";
 import Process from "@/components/sections/Process";
 import Contact from "@/components/sections/Contact";
@@ -22,6 +23,7 @@ export default function Home() {
           <Navbar />
           <Hero />
           <WhyUs />
+          <Demos />
           <Work />
           <Process />
           <Contact />
