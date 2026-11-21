@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion, type Variants } from "framer-motion";
 import { ArrowUpRight, Check } from "lucide-react";
 
@@ -98,16 +98,15 @@ function Preview({ demo, armed }: { demo: Demo; armed: boolean }) {
 
       {armed && (
         <div
-          className={`absolute inset-3 overflow-hidden rounded-lg transition-opacity duration-500 ${
+          className={`absolute inset-3 overflow-hidden rounded-lg transition-opacity duration-300 ${
             loaded ? "opacity-100" : "opacity-0"
           }`}
         >
           <iframe
-            src={demo.href}
+            src={`${demo.href}?preview=1`}
             title={`${demo.title} preview`}
             tabIndex={-1}
             aria-hidden="true"
-            loading="lazy"
             sandbox="allow-scripts"
             onLoad={() => setLoaded(true)}
             className="pointer-events-none border-0 bg-white"
@@ -119,8 +118,42 @@ function Preview({ demo, armed }: { demo: Demo; armed: boolean }) {
   );
 }
 
-function DemoCard({ demo }: { demo: Demo }) {
+function DemoCard({ demo, index }: { demo: Demo; index: number }) {
   const [armed, setArmed] = useState(false);
+
+  // Warm the previews in the background as soon as the page has finished loading, so by the
+  // time a visitor scrolls here they are already rendered. Hover is still an instant fallback,
+  // and visitors with Data Saver enabled only load a preview on hover.
+  useEffect(() => {
+    const saveData = (navigator as Navigator & { connection?: { saveData?: boolean } })
+      .connection?.saveData;
+    if (saveData) return;
+
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let idleId: number | undefined;
+    const arm = () => {
+      timer = setTimeout(() => setArmed(true), index * 250);
+    };
+    const start = () => {
+      if (typeof window.requestIdleCallback === "function") {
+        idleId = window.requestIdleCallback(arm, { timeout: 2000 });
+      } else {
+        arm();
+      }
+    };
+
+    if (document.readyState === "complete") start();
+    else window.addEventListener("load", start, { once: true });
+
+    return () => {
+      window.removeEventListener("load", start);
+      if (timer) clearTimeout(timer);
+      if (idleId !== undefined && typeof window.cancelIdleCallback === "function") {
+        window.cancelIdleCallback(idleId);
+      }
+    };
+  }, [index]);
+
   return (
     <motion.article
       variants={fadeUp}
@@ -193,14 +226,14 @@ export default function Demos() {
         viewport={{ once: true, margin: "-80px" }}
         className="mt-14 grid gap-5 lg:grid-cols-3"
       >
-        {demos.map((d) => (
-          <DemoCard key={d.href} demo={d} />
+        {demos.map((d, i) => (
+          <DemoCard key={d.href} demo={d} index={i} />
         ))}
       </motion.div>
 
       <p className="mt-8 text-sm text-zinc-500">
         Each demo is a single HTML file served from this site, so it opens instantly with no
-        framework and no separate domain. Hover a card to preview it live.
+        framework and no separate domain. Previews load in the background while you read.
       </p>
     </section>
   );
