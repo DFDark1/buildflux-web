@@ -107,7 +107,7 @@ function Preview({ demo, armed }: { demo: Demo; armed: boolean }) {
             title={`${demo.title} preview`}
             tabIndex={-1}
             aria-hidden="true"
-            sandbox="allow-scripts"
+            sandbox="allow-scripts allow-same-origin"
             onLoad={() => setLoaded(true)}
             className="pointer-events-none border-0 bg-white"
             style={{ width: "400%", height: "400%", transform: "scale(0.25)", transformOrigin: "0 0" }}
