@@ -109,7 +109,7 @@ function Preview({ demo, armed }: { demo: Demo; armed: boolean }) {
             aria-hidden="true"
             sandbox="allow-scripts allow-same-origin"
             onLoad={() => setLoaded(true)}
-            className="pointer-events-none border-0 bg-white"
+            className="pointer-events-none border-0 bg-[#15120F]"
             style={{ width: "400%", height: "400%", transform: "scale(0.25)", transformOrigin: "0 0" }}
           />
         </div>

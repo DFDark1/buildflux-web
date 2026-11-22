@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en" class="scroll-smooth dark">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300..700&family=Newsreader:ital,opsz,wght@0,6..72,300..700;1,6..72,300..700&display=swap" rel="stylesheet">
-<script>try{var s=localStorage.getItem('hv-theme');if(s?s==='dark':matchMedia('(prefers-color-scheme: dark)').matches)document.documentElement.classList.add('dark')}catch(e){}</script>
+<script>try{if(localStorage.getItem('hv-theme')==='light')document.documentElement.classList.remove('dark')}catch(e){}</script>
 <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 <style type="text/tailwindcss">
 @custom-variant dark (&:where(.dark, .dark *));
@@ -153,11 +153,9 @@ body{background:var(--bg);color:var(--ink);font-family:"Hanken Grotesk",system-u
           <filter id="gs" x="-10%" y="-10%" width="125%" height="125%"><feDropShadow dx="1.8" dy="3" stdDeviation="2.6" flood-color="#000" flood-opacity=".34"/></filter>
         </defs>
         <rect width="400" height="400" fill="url(#geneva)"/>
-        <!-- Outer movement recess & stepped bevel rings -->
         <circle cx="200" cy="196" r="168" fill="none" stroke="var(--br-edge)" stroke-width="1.1" opacity=".85"/>
         <circle cx="200" cy="196" r="163" fill="none" stroke="var(--pl2)" stroke-width=".7" opacity=".75"/>
         <circle cx="200" cy="196" r="174" fill="none" stroke="var(--pl2)" stroke-width=".6" opacity=".6"/>
-        <!-- Corner bridges -->
         <g filter="url(#gs)"><path d="M0 292C52 262 104 296 138 338C160 366 178 386 196 400H0Z" fill="var(--br)"/><path d="M400 0V104C352 92 316 62 296 26L286 0Z" fill="var(--br)"/></g>
         <path d="M0 292C52 262 104 296 138 338C160 366 178 386 196 400M400 104C352 92 316 62 296 26L286 0" fill="none" stroke="var(--br-edge)" stroke-width="2"/>
         <path d="M0 298C50 270 100 302 133 342C156 370 172 388 188 400M394 100C350 88 316 58 298 22" fill="none" stroke="var(--pl2)" stroke-width=".7"/>
@@ -344,7 +342,6 @@ $('#yr').textContent=new Date().getFullYear();
 
 /* theme */
 $('#themeBtn').onclick=()=>{const d=root.classList.toggle('dark');try{localStorage.setItem('hv-theme',d?'dark':'light')}catch(e){}};
-matchMedia('(prefers-color-scheme: dark)').addEventListener('change',e=>{let s=null;try{s=localStorage.getItem('hv-theme')}catch(_){}if(!s)root.classList.toggle('dark',e.matches)});
 
 /* progress */
 const prog=$('#progress');
